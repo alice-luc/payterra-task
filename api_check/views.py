@@ -14,7 +14,7 @@ class BinNumberViewSet(viewsets.ModelViewSet):
     serializer_class = BinRecognitionRequestSerializer
     queryset = BinRecognitionRequest.objects.all()
 
-    def get_or_create(self, card_number) -> object:
+    def get(self, card_number) -> object:
 
         instance = self.get_object()
         date_of_last_request = instance.date_created
@@ -31,10 +31,16 @@ class BinNumberViewSet(viewsets.ModelViewSet):
 
         return instance
 
+    def create(self):
+        pass
+
+    def update(self):
+        pass
+
     def retrieve(self, request, *args, **kwargs):
 
         card_number = request.data.get('card_number')
-        instance = self.get_or_create(card_number)
+        instance = self.get(card_number)
         serializer = self.get_serializer(instance)
 
         return Response(serializer.data)

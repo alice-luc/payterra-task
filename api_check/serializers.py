@@ -8,5 +8,15 @@ class BinRecognitionRequestSerializer(serializers.ModelSerializer):
         model = BinRecognitionRequest
         fields = '__all__'
 
-    def check_if_expired(self, bin_number):
+
+class BinByRequestSerializer(serializers.Serializer):
+
+    bin = serializers.IntegerField()
+    date_created = serializers.DateTimeField()
+    bank_name = serializers.CharField()
+
+    def update(self, instance, validated_data):
+        instance.update(validated_data)
+
+    def create(self, validated_data):
         pass
